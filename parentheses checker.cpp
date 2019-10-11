@@ -61,12 +61,15 @@ class stack{
 bool ArePair(char opening,char closing)
 {
 	if(opening == '(' && closing == ')'){
+		cout<<"y()S";
 		return true;
 	}
 	else if(opening == '{' && closing == '}'){
+		cout<<"y{}S";
 		return true;
 	}
 	else if(opening == '[' && closing == ']'){
+		cout<<"y[]S";
 		return true;
 	}
 	else{
@@ -111,10 +114,10 @@ int main()
 	
 	//reading file
 	string line;
-	ifstream mfile ("program.txt");
+	ifstream mfile ("zahid file.txt");
 	if (mfile.is_open())
 	{
-		while ( getline (mfile,line, '\0') )
+		while ( getline (mfile,line, '\0') )				//Getline (ifstreamVar, string, ',')
     	{
     	  fileData = line;
     	  cout<<endl<<endl<<fileData<<endl<<endl<<endl;
