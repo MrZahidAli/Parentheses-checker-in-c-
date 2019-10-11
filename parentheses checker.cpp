@@ -61,15 +61,12 @@ class stack{
 bool ArePair(char opening,char closing)
 {
 	if(opening == '(' && closing == ')'){
-		cout<<"y()S";
 		return true;
 	}
 	else if(opening == '{' && closing == '}'){
-		cout<<"y{}S";
 		return true;
 	}
 	else if(opening == '[' && closing == ']'){
-		cout<<"y[]S";
 		return true;
 	}
 	else{
