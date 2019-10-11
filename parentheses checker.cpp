@@ -117,7 +117,7 @@ int main()
 	ifstream mfile ("zahid file.txt");
 	if (mfile.is_open())
 	{
-		while ( getline (mfile,line, '\0') )				//Getline (ifstreamVar, string, ',')
+		while ( getline (mfile,line, '\0') )				
     	{
     	  fileData = line;
     	  cout<<endl<<endl<<fileData<<endl<<endl<<endl;
