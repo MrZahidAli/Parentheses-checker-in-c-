@@ -61,15 +61,12 @@ class stack{
 bool ArePair(char opening,char closing)
 {
 	if(opening == '(' && closing == ')'){
-		cout<<"y()S";
 		return true;
 	}
 	else if(opening == '{' && closing == '}'){
-		cout<<"y{}S";
 		return true;
 	}
 	else if(opening == '[' && closing == ']'){
-		cout<<"y[]S";
 		return true;
 	}
 	else{
@@ -79,7 +76,9 @@ bool ArePair(char opening,char closing)
 bool bracketChaker(string exp)
 {
 	stack S;
-	bool flag;
+	int openBrackets = 0;
+	int closeBrackets = 0;
+	bool flag = false;
 	for(int i = 0; i < exp.length(); i++)
 	{
 		
@@ -87,10 +86,11 @@ bool bracketChaker(string exp)
 			{
 				S.push(exp[i]);
 				flag = false;
-				
+				openBrackets++;
 			}
 		else if( exp[i] == ')' || exp[i] == '}' || exp[i] == ']')
 		{	
+			closeBrackets++;
 			if(!ArePair(S.pop(),exp[i])){			
 				flag = false;
 			}
@@ -100,7 +100,7 @@ bool bracketChaker(string exp)
 			}
 		}
 	}
-	if(flag && S.head -> next == NULL){
+	if(flag && S.head == S.tail && openBrackets == closeBrackets){
 		return true;
 	}
 	else{
@@ -117,14 +117,19 @@ int main()
 	ifstream mfile ("zahid file.txt");
 	if (mfile.is_open())
 	{
-		while ( getline (mfile,line, '\0') )				
+		while ( getline (mfile,line, '\0') )				//Getline (ifstreamVar, string, ',')
     	{
     	  fileData = line;
     	  cout<<endl<<endl<<fileData<<endl<<endl<<endl;
     	}
 		mfile.close();
 	}
+
 	else cout << "Unable to open file";
+		
+	
+	
+	
 	if(bracketChaker(fileData))
 		cout<<"Balanced\n";
 	else
