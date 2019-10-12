@@ -39,7 +39,9 @@ class stack{
 			}
 		}
 		char pop() {
-			
+			if(head == NULL){
+				return 'f';
+			}
     		node *current;
 			current = head;
 			
@@ -48,7 +50,7 @@ class stack{
  
     		while(current->next != NULL) {
     			previous = current;
-    			current = current->next;	
+    			current = current->next;
 			}
 			previous->next = NULL;
 			tail = previous;
@@ -91,6 +93,10 @@ bool bracketChaker(string exp)
 		else if( exp[i] == ')' || exp[i] == '}' || exp[i] == ']')
 		{	
 			closeBrackets++;
+			char stat = S.pop();
+			if(stat == 'f'){
+				break;
+			}
 			if(!ArePair(S.pop(),exp[i])){			
 				flag = false;
 			}
@@ -100,7 +106,8 @@ bool bracketChaker(string exp)
 			}
 		}
 	}
-	if(flag && S.head == S.tail && openBrackets == closeBrackets){
+
+	if(flag && S.head == S.tail && openBrackets == closeBrackets ){
 		return true;
 	}
 	else{
@@ -117,7 +124,7 @@ int main()
 	ifstream mfile ("zahid file.txt");
 	if (mfile.is_open())
 	{
-		while ( getline (mfile,line, '\0') )				//Getline (ifstreamVar, string, ',')
+		while ( getline (mfile,line, '\0') )	
     	{
     	  fileData = line;
     	  cout<<endl<<endl<<fileData<<endl<<endl<<endl;
