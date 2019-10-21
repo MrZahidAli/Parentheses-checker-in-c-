@@ -30,15 +30,25 @@ class stack{
 			}
 			
 		}
-		void printList(){
-			node *temp = new node;
-			temp = head;
-			while(temp != NULL){
-				cout << temp -> data << "\t";
-				temp = temp -> next;
-			}
-		}
 		char pop() {
+			
+			node *current;
+			current = head;
+			
+			node* previous;
+			previous= head;
+ 
+    		while(current->next != NULL) {
+    			previous = current;
+    			current = current->next;
+			}
+			char output = current -> data;
+			previous->next = NULL;
+			tail = previous;
+			delete current;
+			return output; 
+		}
+		char top() {
 			if(head == NULL){
 				return 'f';
 			}
@@ -52,73 +62,51 @@ class stack{
     			previous = current;
     			current = current->next;
 			}
-			previous->next = NULL;
-			tail = previous;
 			return current -> data;
-			delete current;
 		}
+		int empty() 
+		{ 
+    		return head == NULL; 
+		} 
 };
-
-
-bool ArePair(char opening,char closing)
-{
-	if(opening == '(' && closing == ')'){
-		return true;
-	}
-	else if(opening == '{' && closing == '}'){
-		return true;
-	}
-	else if(opening == '[' && closing == ']'){
-		return true;
-	}
-	else{
-		return false;
-	}
-}
-bool bracketChaker(string exp)
-{
+bool AreParanthesesBalanced(string exp){
 	stack S;
-	int openBrackets = 0;
-	int closeBrackets = 0;
 	bool flag = false;
-	for(int i = 0; i < exp.length(); i++)
-	{
-		
-		if(exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
-			{
-				S.push(exp[i]);
-				flag = false;
-				openBrackets++;
-			}
-		else if( exp[i] == ')' || exp[i] == '}' || exp[i] == ']')
-		{	
+	for(int i = 0; i < exp.length(); i++){
+		if(exp[i] == '(' || exp[i] == '{' || exp[i] == '['){
+			S.push(exp[i]);
+			openBrackets++;
+		}
+		else if(exp[i] == ')' || exp[i] == '}' || exp[i] == ']'){
 			closeBrackets++;
-			char stat = S.pop();
+			char stat = S.top();
 			if(stat == 'f'){
-				break;
+				return false;
+				
 			}
-			if(!ArePair(S.pop(),exp[i])){			
-				flag = false;
+			if((S.top() == '(' && exp[i] == ')') || (S.top() == '{' && exp[i] == '}') || (S.top() == '[' && exp[i] == ']')){
+				if(S.head != S.tail){
+					S.pop();			
+				}
 			}
 			else{
-				S.pop();
-				flag = true;
+				return false;
+				
+				
 			}
 		}
 	}
-
-	if(flag && S.head == S.tail && openBrackets == closeBrackets ){
+	if(S.head == S.tail && openBrackets == closeBrackets){
 		return true;
 	}
 	else{
 		return false;
+		
 	}
 }
-
 int main()
 {
 	string fileData;
-	
 	//reading file
 	string line;
 	ifstream mfile ("zahid file.txt");
@@ -131,15 +119,13 @@ int main()
     	}
 		mfile.close();
 	}
-
 	else cout << "Unable to open file";
-		
-	
-	
-	
-	if(bracketChaker(fileData))
+	if(AreParanthesesBalanced(fileData))
 		cout<<"Balanced\n";
-	else
+	else{
 		cout<<"Not Balanced\n";
+	}
+	cout << endl << "bracketCounter :" << bracketCounter << endl;
+	
 	return 0;
 }
